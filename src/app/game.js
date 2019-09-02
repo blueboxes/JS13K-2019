@@ -4,15 +4,17 @@ import { buildGrid } from './gridBuilder';
 
 export function createGame(thePlayer,canvas){
 
-   let hexMap = buildGrid(canvas);
+   let grid = buildGrid(canvas);
+   thePlayer.x = grid.centreCell.x;
+   thePlayer.y = grid.centreCell.y;
    
    let g = {
         state:'new',
         level:1,
         lifes:3,
         targetCells: null,
-        hexMap: hexMap,
-        centreCell:null,
+        hexMap: grid.hexMap,
+        centreCell: grid.centreCell,
         player:thePlayer,
         resetGame:function(){
             this.level=1;

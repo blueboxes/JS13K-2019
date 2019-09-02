@@ -37,7 +37,7 @@ export function setTargetCells(homeCell,hexmap,level){
       //todo:check number of nabours for given level
       let offset = (currentCell.col%2===0) ? evenOptions[getRandomInt(6)] : oddOptions[getRandomInt(6)]
       let cell = hexmap.find((e)=>e.col === (currentCell.col + offset[0]) && e.row === (currentCell.row + offset[1]));
-      if(!cell.status){
+      if(cell && !cell.status){
         
         if(targetCells.length===cellCount){
           cell.status = 'end';     
