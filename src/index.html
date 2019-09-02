@@ -3,10 +3,35 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <script>window.$=document.querySelectorAll.bind(document),Node.prototype.on=window.on=function(o,t){this.addEventListener(o,t)},NodeList.prototype.__proto__=Array.prototype,NodeList.prototype.on=NodeList.prototype.addEventListener=function(o,t){this.forEach(function(e,n){e.on(o,t)})};</script>
 </head>
 
 <body>
+   <div class="bar header">
+        <div id="lvl">Level 1</div>
+        <ul id="lf"><li></li><li></li><li></li></ul>
+    </div>     
+    <canvas class="content"></canvas>
+    <div class="bar footer"><div id="state"></div></div>
+ 
+    <div id="backdrop"></div>
+    <dialog id="new-dialog">
+        <h1>Welcome</h1>
+        <button class="new-game">New Game</button>
+    </dialog>
+    <dialog id="lvl-dialog">
+        <h1>Pilot Level X</h1>
+        <p>Flight Plan</p>
+        <p>Distance X</p>
+        <p>Speed X</p>
+        <button>Continue</button>
+    </dialog>
+    <dialog id="over-dialog">
+        <h1>Game Over</h1>
+        <button class="new-game">New Game</button>
+    </dialog>
+   
 </body>
 
 </html>

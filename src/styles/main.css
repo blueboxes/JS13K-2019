@@ -7,5 +7,96 @@ body {
 }
 
 body {
-  background-color: cornflowerblue;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+}
+
+.content {
+  flex: 1;
+}
+ 
+  
+ul {
+  list-style:none;
+  padding:0 1em;
+  margin: 0;
+}
+
+li { 
+    margin: 3px;
+    display: inline-block;
+    height: 1.5em;
+    width: 1.5em;
+    background-image: url('../img/player.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.bar{
+  display: flex;
+  background: #576c99;
+  border-bottom:2px solid #9eb4db;
+  flex-direction:row;
+  justify-content: space-between;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  font-family: monospace;
+}
+
+#lvl{
+  background: #9eb4db;
+  padding: 0 20px 0 10px;
+  border-radius: 0 20px 20px 0;
+  font-size: 2em;  
+}
+
+.footer{
+  background: #b2acab;
+  justify-content:center;
+  font-size: 1.3em; 
+  padding: 5px;
+  border:none;
+}
+
+dialog {
+  padding: 0;
+  border: 0;
+  border-radius: 0.6rem;
+  box-shadow: 0 0 1em black;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+#backdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+dialog[open] {
+  display: block;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  color: black;
+  margin: auto;
+  border-width: initial;
+  border-style: solid;
+  border-color: initial;
+  border-image: initial;
+  padding: 1em;
+  background: white;
+}
+
+dialog[open] {
+  animation: slide-up 0.4s ease-out;
 }

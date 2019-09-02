@@ -10,6 +10,7 @@ module.exports = {
   devtool: !isProduction && 'source-map',
   module: {
     rules: [
+      { test: /\.svg$/, use: 'file-loader' },
       {
         test: /\.css$/,
         use: [
