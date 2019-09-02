@@ -14,13 +14,6 @@ initPointer();
 let player = Player();
 let game = createGame(player,canvas);
 
-//highlight centre
-/*game.centreCell = game.hexMap.find((e)=>e.collidesWith(player));
-player.x = game.centreCell.x;
-player.y = game.centreCell.y;
-game.centreCell.status = 'home';
-*/
-
 show("#new-dialog");
 
 onPointerDown(function(e, sprite) {

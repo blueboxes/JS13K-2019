@@ -21,17 +21,31 @@
         <button class="new-game">New Game</button>
     </dialog>
     <dialog id="lvl-dialog">
-        <h1>Pilot Level X</h1>
-        <p>Flight Plan</p>
-        <p>Distance X</p>
-        <p>Speed X</p>
-        <button>Continue</button>
+        <main>
+        </main>
+        <footer>
+            <button>Continue</button>
+        </footer>
     </dialog>
     <dialog id="over-dialog">
         <h1>Game Over</h1>
         <button class="new-game">New Game</button>
     </dialog>
-   
+     
+<script type="template" id="lvl-tmp">
+    <h1>Pilot Level {{level}}</h1>
+    <p>Flight Plan</p>
+    <table>
+        <tr>
+            <td>Distance</td>
+            <td>{{distance}} miles</td>
+        </tr>
+        <tr>
+            <td>Speed</td>
+            <td>{{speed}} mph</td>
+        </tr>
+    </table>
+</script>
 </body>
 
 </html>

@@ -1,13 +1,14 @@
 import { setTargetCells } from './pathBuilder';
 import { show, hide } from './dialog';
 import { buildGrid } from './gridBuilder';
+import { applyTemplate } from './template';
 
 export function createGame(thePlayer,canvas){
 
    let grid = buildGrid(canvas);
    thePlayer.x = grid.centreCell.x;
    thePlayer.y = grid.centreCell.y;
-   
+
    let g = {
         state:'new',
         level:1,
@@ -28,6 +29,17 @@ export function createGame(thePlayer,canvas){
           this.player.reset(this.centreCell.x,this.centreCell.y)
           this.drawRouteOut();
         },
+        showPlan:function(){
+   
+          applyTemplate({
+            level:this.level,
+            speed:this.player.speed * 150,
+            distance:(Math.floor(this.level/5) + 5) * 10},
+            "#lvl-tmp",
+            "#lvl-dialog>main");
+
+          show("#lvl-dialog");
+        },
         onPointerDown(sprite)
         {
           if(this.state==='show' && this.lifes > 0){
@@ -46,7 +58,7 @@ export function createGame(thePlayer,canvas){
                 if(reamining.length===1){
                   this.state = 'levelup'
                   this.level++;
-                  this.player.afterMove = ()=>show("#lvl-dialog");
+                  this.player.afterMove = ()=>this.showPlan();
                 }
                 return;
               }
@@ -115,10 +127,10 @@ function setupEvents(game)
       game.resetGame();
       hide("#new-dialog");
       hide("#over-dialog");
-      show("#lvl-dialog");
+      game.showPlan();
     });
   });
   
-  $("#lvl-dialog>button")[0].on('click',()=> {game.resetLevel();hide("#lvl-dialog")});
+  $("#lvl-dialog>footer>button")[0].on('click',()=> {game.resetLevel();hide("#lvl-dialog")});
 }
  

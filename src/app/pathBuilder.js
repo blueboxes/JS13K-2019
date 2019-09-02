@@ -27,6 +27,7 @@ export function setTargetCells(homeCell,hexmap,level){
 
     let targetCells = [];
     let currentCell=homeCell;
+    
     //cells start at 4 and increase by 1 every 5 levels
     let cellCount = Math.floor(level/5) + 5;
     let skip = 0;

@@ -13,9 +13,9 @@ const img = new Image();
 img.src = svg;
 
 return Sprite({
-    x: window.innerWidth/2,        
-    y: window.innerHeight/2,
-    width: 30*0.92,
+    x: 0,        
+    y: 0,
+    width: 30*0.92,//* ratio of width to height of original svg
     height: 30,
     rotation:0,//current in degrees
     dr:0,//desired rotation in degrees

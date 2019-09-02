@@ -4,8 +4,8 @@ import { track } from 'kontra';
 export function buildGrid(canvas) {
     let vSpace = 37.5;
     let width = 43;
-    let colCount = 4//(canvas.width/vSpace);
-    let rowCount = 4//(canvas.height/43.30127) + 1;
+    let colCount = (canvas.width/vSpace);
+    let rowCount = (canvas.height/43.30127) + 1;
     const canvasOffSet = 12.5;
     let hexMap = [];
 
@@ -19,7 +19,7 @@ export function buildGrid(canvas) {
             let tile = createHexTile(canvasOffSet + col * vSpace,y,col,row);
             track(tile);
 
-            if(col==centre.x&&row==centre.y){
+            if(col==centre.x && row==centre.y){
                 tile.status = 'home';
                 centreCell = tile;
             }
