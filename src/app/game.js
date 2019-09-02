@@ -1,14 +1,17 @@
 import { setTargetCells } from './pathBuilder';
 import { show, hide } from './dialog';
+import { buildGrid } from './gridBuilder';
 
-export function createGame(thePlayer){
+export function createGame(thePlayer,canvas){
 
+   let hexMap = buildGrid(canvas);
+   
    let g = {
         state:'new',
         level:1,
         lifes:3,
         targetCells: null,
-        hexMap: [],
+        hexMap: hexMap,
         centreCell:null,
         player:thePlayer,
         resetGame:function(){
