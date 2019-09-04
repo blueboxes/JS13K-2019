@@ -21,6 +21,7 @@
     "webpack-dev-server": "^3.8.0"
   },
   "dependencies": {
+    "jsfxr": "0.0.1",
     "kontra": "^6.2.3"
   }
 }

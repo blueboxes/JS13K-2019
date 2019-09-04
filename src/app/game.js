@@ -2,6 +2,7 @@ import { setTargetCells } from './pathBuilder';
 import { show, hide } from './dialog';
 import { buildGrid } from './gridBuilder';
 import { applyTemplate } from './template';
+import { PlaySound } from './sounds';
 
 export function createGame(thePlayer,canvas){
 
@@ -21,6 +22,7 @@ export function createGame(thePlayer,canvas){
             this.level=1;
             this.lifes=3;
             this.rewinds=3;
+            PlaySound();
         },
         resetLevel:function()
         {

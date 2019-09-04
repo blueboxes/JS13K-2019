@@ -26,7 +26,7 @@ export function createHexTile(x,y,col,row) {
           onHit: function(){
             if(this.status!='home'){
               this.status='hit';
-              this.fill = 'red';
+              this.fill = '#f1f1f1';
             }
           },
           collidesWithPointer: function(pointer) {
