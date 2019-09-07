@@ -1,3 +1,5 @@
+import { playSound,sounds } from "./sounds";
+
 export function show(selector) {
   if (isNative()) {
     $(selector)[0].showModal();
@@ -5,6 +7,8 @@ export function show(selector) {
     $(selector)[0].setAttribute('open','');
     $("#backdrop")[0].style.display = "block";
   }
+
+  playSound(sounds.start);
 }
 
 export function hide(selector) {

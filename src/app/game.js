@@ -2,7 +2,8 @@ import { setTargetCells } from './pathBuilder';
 import { show, hide } from './dialog';
 import { buildGrid } from './gridBuilder';
 import { applyTemplate } from './template';
-import { PlaySound } from './sounds';
+import { playSound,sounds } from './sounds';
+import { getLevelMessage, getStatusMessage } from './messages';
 
 export function createGame(thePlayer,canvas){
 
@@ -11,18 +12,21 @@ export function createGame(thePlayer,canvas){
    thePlayer.y = grid.centreCell.y;
 
    let g = {
+        mode:'story',
         state:'new',
         level:1,
-        lifes:3,
+        lifes:1,
+        flights:0,
         targetCells: null,
         hexMap: grid.hexMap,
         centreCell: grid.centreCell,
         player:thePlayer,
         resetGame:function(){
+            this.mode = 'story';
+            this.flights=0;
             this.level=1;
             this.lifes=3;
             this.rewinds=3;
-            PlaySound();
         },
         resetLevel:function()
         {
@@ -32,13 +36,13 @@ export function createGame(thePlayer,canvas){
           this.drawRouteOut();
         },
         showPlan:function(){
-   
           applyTemplate({
             level:this.level,
+            message: getLevelMessage(this.level,this.flights,this.mode),
             speed:this.player.speed * 150,
             distance:(Math.floor(this.level/5) + 5) * 10},
             "#lvl-tmp",
-            "#lvl-dialog>main");
+            "#lvl-dialog>span");
 
           show("#lvl-dialog");
         },
@@ -59,7 +63,10 @@ export function createGame(thePlayer,canvas){
 
                 if(reamining.length===1){
                   this.state = 'levelup'
-                  this.level++;
+                  if(this.mode!='free')
+                    this.level++;
+                 
+                  this.flights++;
                   this.player.afterMove = ()=>this.showPlan();
                 }
                 return;
@@ -70,7 +77,13 @@ export function createGame(thePlayer,canvas){
 
             if(this.lifes===0) {
               this.state='over';
-              this.player.afterMove = ()=>show("#over-dialog");
+              this.player.afterMove = ()=>{
+                applyTemplate({flights:this.flights,level:this.level,url:window.location.href},
+                  this.mode == 'story'?  "#story-over-tmp" : "#free-over-tmp",
+                  "#over-dialog>span");             
+
+                show("#over-dialog")
+              };
             }
           }
         },
@@ -106,8 +119,8 @@ export function createGame(thePlayer,canvas){
             this.state = 'back';
         },
         render:function(){
-            if($("#state")[0].innerText != this.state){
-                $("#state")[0].innerText = this.state;
+            if($("#state")[0].innerText != getStatusMessage(this.state)){
+                $("#state")[0].innerText = getStatusMessage(this.state);
             }
             if($("#lvl")[0].innerText != 'Level ' +  this.level){
               $("#lvl")[0].innerText = 'Level ' + this.level;
@@ -124,15 +137,38 @@ export function createGame(thePlayer,canvas){
 
 function setupEvents(game)
 {
-  $(".new-game").forEach(e => {
+  $(".reset").forEach(e => {
     e.on('click',()=>{
-      game.resetGame();
-      hide("#new-dialog");
+      hide("#options-dialog");
       hide("#over-dialog");
-      game.showPlan();
+      show("#new-dialog");
     });
   });
-  
-  $("#lvl-dialog>footer>button")[0].on('click',()=> {game.resetLevel();hide("#lvl-dialog")});
+
+  $(".new-game")[0].on('click',()=>{
+    game.resetGame();
+    hide("#new-dialog");
+    game.showPlan();
+});
+
+$(".options")[0].on('click',()=>{
+  hide("#new-dialog");
+  show("#options-dialog");
+});
+
+$(".free-game")[0].on('click',()=>{
+  hide("#options-dialog");
+  game.resetGame();
+  game.level = parseInt($("#opt-level")[0].value);
+  game.lifes = parseInt($("#opt-lifes")[0].value);
+  game.mode = 'free';
+  game.showPlan();
+});
+ 
+$("#lvl-dialog>button")[0].on('click',()=> {
+  game.resetLevel();
+  hide("#lvl-dialog")
+});
+
 }
  

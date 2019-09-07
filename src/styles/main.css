@@ -16,12 +16,14 @@ body {
 
 p{
   max-width: 400px;
-  padding: 20px;
+  padding: 10px;
+  margin: 0;
 }
+
 .content {
   flex: 1;
 }
- 
+
   
 ul {
   list-style:none;
@@ -104,25 +106,50 @@ dialog[open] {
 }
 
 dialog[open] {
-  animation: slide-up 1s ease-out;
+  animation: fade 0.2s ease-out;
 }
 
-button{
+@keyframes fade{
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.button, button{
   border-radius: 5px;
   border: 2px solid #fff;
   padding: 10px;
   background: #9eb4db;
   color: #fff;
+  text-decoration: none;
+  margin: 0 10px;
+  font-family: Courier;
 }
 
-button:focus {
+button:focus, .button:focus {
   outline: none;
 }
 
 h1 {
+  margin: 0;
+  padding: 10px;
   color: #576c99;
   font-size: 2em;
   font-weight: bold;
   text-align: center;
 }
+h2{
+  padding:0;
+  margin:0;
+}
  
+table{
+  background: #e0e0e0;
+  width: 100%;
+  padding: 10px;
+  margin: 20px 0;
+  text-align: left;
+}
+
+.pb{
+  padding-bottom:30px;
+}

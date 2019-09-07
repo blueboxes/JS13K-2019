@@ -32,26 +32,51 @@
                 </g>
                </svg>
 
-        <h1 class="hit-the-floor">Flight Back Home</h1>
-        <p>Watch the outbound flight and plot the journey back along exactly the same path to get home safely.</p>
-        <button class="new-game">Begin Game</button>
+        <h1>Flight Back Home</h1>
+        <p class="pb">Watch the outbound flight and plot the journey back along exactly the same path to get home safely.</p>
+        <button class="new-game">Story Mode</button>
+        <button class="options">Free Play</button>
     </dialog>
     <dialog id="lvl-dialog">
-        <main>
-        </main>
-        <footer>
-            <button>Continue</button>
-        </footer>
+        <span></span>
+        <button>Continue</button>
     </dialog>
     <dialog id="over-dialog">
-        <h1>Game Over</h1>
-        <button class="new-game">New Game</button>
+        <span></span>
+        <button class="reset">Try Again</button>
+    </dialog>
+    <dialog id="options-dialog">
+            
+        <h1>Free Play</h1>
+        <p>In this mode you can select the level to play and how many lives.</p>
+           
+        <table>
+            <tr>
+                <td>Level</td>
+                <td><select id="opt-level">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>10</option>
+                    <option>50</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Lifes</td>
+                <td><select id="opt-lifes"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
+            </tr>
+        </table>
+
+        <button class="reset">Back</button>
+        <button class="free-game">Play</button>
     </dialog>
      
-<script type="template" id="lvl-tmp">
-    <h1>Pilot Level {{level}}</h1>
-    <p>Flight Plan</p>
+<script type="tx" id="lvl-tmp">
+    <h1>Level {{level}} Pilot</h1>
+    {{message}}
     <table>
+        <tr>
+            <td colspan=2><h2>Flight Plan</h2></td>
+        </tr>
         <tr>
             <td>Distance</td>
             <td>{{distance}} miles</td>
@@ -61,6 +86,18 @@
             <td>{{speed}} mph</td>
         </tr>
     </table>
+</script>
+
+<script type="tx" id="story-over-tmp">
+    <h1>Game Over</h1>
+    <p class="pb">Congratulations on reaching level {{level}} however you have run out of planes!</p>
+    <a class="button" target="_" href="http://www.twitter.com/share?text=I reached pilot level {{level}} on 'Flight Back Home' a JS13K game entry by @johnkilmister. Try it out yourself at {{url}} #js13k #flightbackhome">Tweet Score</a>
+</script>
+
+<script type="tx" id="free-over-tmp">
+        <h1>Game Over</h1>
+        <p class="pb">Congratulations on {{flights}} flights at level {{level}} however you have run out of planes!</p>
+        <a class="button" target="_" href="http://www.twitter.com/share?text=I reached {{flights}} flights at level {{level}} on 'Flight Back Home' a JS13K game entry by @johnkilmister. Try it out yourself at {{url}} #js13k #flightbackhome">Tweet Score</a>
 </script>
 
 </body>

@@ -39,6 +39,11 @@ module.exports = {
       filename: '[name].css'
     })
   ],
+  resolve: {
+      alias: {
+          'jsfxr': 'jsfxr/jsfxr.js'
+      }
+  },
   devServer: {
     stats: 'minimal',
     overlay: true
