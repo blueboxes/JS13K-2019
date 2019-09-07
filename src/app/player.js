@@ -17,13 +17,14 @@ return Sprite({
     y: 0,
     width: 30*0.92,//* ratio of width to height of original svg
     height: 30,
+    cw:true,
     rotation:0,//current in degrees
     dr:0,//desired rotation in degrees
     dx:0,//desired x
     dy:0,//desired y
     scale:1,
     pathCells:[],
-    speed: 0.8,
+    speed: 1,
     currentTarget:null,
     afterMove:null,
     reset:function(x,y)
@@ -47,12 +48,19 @@ return Sprite({
       }
 
       //either rotate or move, do not do both
-      if(Math.abs(this.dr-this.rotation) > 5){
+      if(Math.abs(this.dr-this.rotation) > 10){
          
         if(this.cw)
           this.rotation+=4;
         else
           this.rotation-=4;
+
+        if(this.rotation > 360)
+          this.rotation = 0;
+
+        if(this.rotation < 0)
+          this.rotation = 360;
+          
 
       }else if(this.pathCells.length > 0){
             
@@ -74,10 +82,18 @@ return Sprite({
  
           if(setTarget){
             this.currentTarget = this.pathCells[0];
-            const directionRad = Math.atan2(this.currentTarget.y-this.y, this.currentTarget.x-this.x);
             
-            this.dr = directionRad * (180/Math.PI) + 90;
-            this.cw = (this.dr - this.rotation) > 0
+            let directionRad = Math.atan2(this.currentTarget.y-this.y, this.currentTarget.x-this.x);
+            
+            this.dr = (((directionRad * 180)/Math.PI + 90) + 360) % 360;
+
+            let diff = this.dr - this.rotation;
+            if(diff < 0)
+                diff += 360;
+            if(diff > 180)
+                this.cw = false; 
+            else
+                this.cw = true;
 
             this.dx = Math.cos(directionRad) * this.speed;
             this.dy = Math.sin(directionRad) * this.speed;
@@ -86,6 +102,9 @@ return Sprite({
           if(this.currentTarget){  
             this.x += this.dx;
             this.y += this.dy;   
+            this.scale = 1.1;
+          }else{
+            this.scale = 1;
           }
         }
     },

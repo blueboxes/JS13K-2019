@@ -23,8 +23,9 @@ export function getStatusMessage(status)
 {
     const messages = [
         {state:'out',msg:'Flying out bound, memorize the route...'},
+        {state:'pending',msg:'Route set please wait...'},
         {state:'back',msg:'Plot the same route back.'},
-        {state:'show',msg:'Brace for impact...'},
+        {state:'show',msg:'Plane lost, please try again...'},
         {state:'levelup',msg:'Your going places!'},
         {state:'new',msg:''},
         {state:'over',msg:''}

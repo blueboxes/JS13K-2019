@@ -4,6 +4,7 @@ import { buildGrid } from './gridBuilder';
 import { applyTemplate } from './template';
 import { playSound,sounds } from './sounds';
 import { getLevelMessage, getStatusMessage } from './messages';
+import { timeout } from 'q';
 
 export function createGame(thePlayer,canvas){
 
@@ -40,7 +41,7 @@ export function createGame(thePlayer,canvas){
             level:this.level,
             message: getLevelMessage(this.level,this.flights,this.mode),
             speed:this.player.speed * 150,
-            distance:(Math.floor(this.level/5) + 5) * 10},
+            distance: Math.floor(this.level/5) + 5},
             "#lvl-tmp",
             "#lvl-dialog>span");
 
@@ -56,35 +57,44 @@ export function createGame(thePlayer,canvas){
             
               var reamining = this.targetCells.filter((h)=>h.status!='hit'&&h.status!='end');
               var nextCell = reamining[reamining.length-1];
-              if(sprite === nextCell){
-                
-                nextCell.onHit();
-                this.player.moveToCell(sprite);
 
+              sprite.onHit();
+              this.player.moveToCell(sprite);
+
+              if(sprite === nextCell){
+               
                 if(reamining.length===1){
-                  this.state = 'levelup'
-                  if(this.mode!='free')
-                    this.level++;
+                  this.state = 'pending'
                  
-                  this.flights++;
-                  this.player.afterMove = ()=>this.showPlan();
+                  this.player.afterMove = ()=>{
+                    this.state = 'levelup'
+                    this.flights++;
+                    if(this.mode!='free')
+                      this.level++;
+                    this.showPlan()
+                  };
+
                 }
                 return;
               }
           
-            this.lifes--;
-            this.reaminingRoute();
+              //Not hit the correct cell so after finish moving
+              //tell user
+              this.state = 'pending';
 
-            if(this.lifes===0) {
-              this.state='over';
               this.player.afterMove = ()=>{
-                applyTemplate({flights:this.flights,level:this.level,url:window.location.href},
-                  this.mode == 'story'?  "#story-over-tmp" : "#free-over-tmp",
-                  "#over-dialog>span");             
-
-                show("#over-dialog")
+                playSound(sounds.crash);
+                this.lifes--;
+                this.reaminingRoute();
+            
+                if(this.lifes===0) {
+                  setTimeout(()=>{
+                    this.state='over';
+                    applyTemplate({flights:this.flights,level:this.level,url:window.location.href}, this.mode == 'story'?  "#story-over-tmp" : "#free-over-tmp", "#over-dialog>span");             
+                    show("#over-dialog")                  
+                  },3000);
+                } 
               };
-            }
           }
         },
         reaminingRoute:function()
@@ -95,7 +105,7 @@ export function createGame(thePlayer,canvas){
             if(cell.status === 'active'){
 
               let oldFill = cell.fill
-              cell.fill = "#5fbac6";  
+              cell.fill = "#97d2da";  
               //todo:bug if you click before animation ends then
               //cells still show highlighted
               /*setTimeout((cell,oldFill)=>{
