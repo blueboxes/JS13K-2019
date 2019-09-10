@@ -4,7 +4,8 @@ move player to each cell
 highlight then fade cells
 */
 import { Sprite } from 'kontra';
-import svg from '../img/player.svg'
+import svg from '../img/player.svg' 
+import { sounds } from './sounds';
 
 export function Player(){
 
@@ -81,6 +82,7 @@ return Sprite({
           }
  
           if(setTarget){
+            
             this.currentTarget = this.pathCells[0];
             
             let directionRad = Math.atan2(this.currentTarget.y-this.y, this.currentTarget.x-this.x);

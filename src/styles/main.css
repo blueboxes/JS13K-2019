@@ -1,3 +1,4 @@
+/*As this is for JS13K Gmes to save space I have target elements and ids not classes*/
 html,
 body {
   width: 100%;
@@ -23,20 +24,28 @@ p{
 .content {
   flex: 1;
 }
-
   
 ul {
   list-style:none;
-  padding:0 1em;
   margin: 0;
+}
+/*Lifes*/
+#lf>li { 
+  background-image: url('../img/player.svg');
+  width: 1.5em;
+}
+
+/*Re-winds*/
+#rw>li:before { 
+    content: '🚩';
+    margin-left: -20px;
+    margin-right: 10px;
 }
 
 li { 
-    margin: 3px;
+    margin: 5px;
     display: inline-block;
     height: 1.5em;
-    width: 1.5em;
-    background-image: url('../img/player.svg');
     background-size: contain;
     background-repeat: no-repeat;
 }
@@ -103,6 +112,8 @@ dialog[open] {
   padding: 1em;
   background: #f1f1f1;
   text-align: center;
+  width:400px;
+  max-width: 80%;
 }
 
 dialog[open] {
@@ -115,6 +126,7 @@ dialog[open] {
 }
 
 .button, button{
+  user-select: none;
   border-radius: 5px;
   border: 2px solid #fff;
   padding: 10px;

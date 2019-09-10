@@ -1,10 +1,9 @@
 import { setTargetCells } from './pathBuilder';
-import { show, hide } from './dialog';
+import { show } from './dialog';
 import { buildGrid } from './gridBuilder';
 import { applyTemplate } from './template';
 import { playSound,sounds } from './sounds';
 import { getLevelMessage, getStatusMessage } from './messages';
-import { timeout } from 'q';
 
 export function createGame(thePlayer,canvas){
 
@@ -16,7 +15,7 @@ export function createGame(thePlayer,canvas){
         mode:'story',
         state:'new',
         level:1,
-        lifes:1,
+        lifes:0,
         flights:0,
         targetCells: null,
         hexMap: grid.hexMap,
@@ -36,12 +35,21 @@ export function createGame(thePlayer,canvas){
           this.player.reset(this.centreCell.x,this.centreCell.y)
           this.drawRouteOut();
         },
+        rewind:function(){
+          if(this.state==='back' && this.rewinds > 0){
+            this.rewinds--;
+            this.player.reset(this.centreCell.x,this.centreCell.y);
+            this.hexMap = this.hexMap.map((h)=>{h.status!='home' && h.status!='end'?h.reset():h.resetHome();return h})
+            this.targetCells = this.targetCells.map((h)=>{if(h.status==='hit'){h.status='active'};return h});
+            this.drawRouteOut();
+          }
+        },
         showPlan:function(){
           applyTemplate({
             level:this.level,
             message: getLevelMessage(this.level,this.flights,this.mode),
             speed:this.player.speed * 150,
-            distance: Math.floor(this.level/5) + 5},
+            distance: Math.floor(this.level/3) + 5},
             "#lvl-tmp",
             "#lvl-dialog>span");
 
@@ -55,6 +63,8 @@ export function createGame(thePlayer,canvas){
 
           if(this.state === 'back'){
             
+              playSound(sounds.nextCell);
+
               var reamining = this.targetCells.filter((h)=>h.status!='hit'&&h.status!='end');
               var nextCell = reamining[reamining.length-1];
 
@@ -69,8 +79,12 @@ export function createGame(thePlayer,canvas){
                   this.player.afterMove = ()=>{
                     this.state = 'levelup'
                     this.flights++;
-                    if(this.mode!='free')
+                    playSound(sounds.levelup);
+                    if(this.mode!='free'){
                       this.level++;
+                      if(this.level%10==0)
+                        this.lifes++;
+                    }
                     this.showPlan()
                   };
 
@@ -78,8 +92,7 @@ export function createGame(thePlayer,canvas){
                 return;
               }
           
-              //Not hit the correct cell so after finish moving
-              //tell user
+              //Not hit the correct cell so after finish moving tell user
               this.state = 'pending';
 
               this.player.afterMove = ()=>{
@@ -102,16 +115,10 @@ export function createGame(thePlayer,canvas){
           this.state='show';
           this.targetCells.map((cell,i)=>{
 
+            if(i>0) cell.previous = this.targetCells[i-1]
+            if(i!=this.targetCells.length) cell.next = this.targetCells[i+1]
             if(cell.status === 'active'){
-
-              let oldFill = cell.fill
               cell.fill = "#97d2da";  
-              //todo:bug if you click before animation ends then
-              //cells still show highlighted
-              /*setTimeout((cell,oldFill)=>{
-                cell.fill = oldFill;
-                setTimeout((cell)=>{cell.fill = "#5fbac6";},500,cell,oldFill);  
-              },1500,cell,oldFill);*/
             }
 
           });  
@@ -129,6 +136,8 @@ export function createGame(thePlayer,canvas){
             this.state = 'back';
         },
         render:function(){
+ 
+          if(this.domReady){
             if($("#state")[0].innerText != getStatusMessage(this.state)){
                 $("#state")[0].innerText = getStatusMessage(this.state);
             }
@@ -139,46 +148,15 @@ export function createGame(thePlayer,canvas){
             {
               $("#lf")[0].innerHTML = '<li></li>'.repeat(this.lifes);
             }
+            if($("#rw")[0].children.length != Math.max(this.rewinds,0))
+            {
+              $("#rw")[0].innerHTML = '<li></li>'.repeat(this.rewinds);
+            }
+          }
+
         }
     }
-    setupEvents(g);
     return g;
 }
 
-function setupEvents(game)
-{
-  $(".reset").forEach(e => {
-    e.on('click',()=>{
-      hide("#options-dialog");
-      hide("#over-dialog");
-      show("#new-dialog");
-    });
-  });
-
-  $(".new-game")[0].on('click',()=>{
-    game.resetGame();
-    hide("#new-dialog");
-    game.showPlan();
-});
-
-$(".options")[0].on('click',()=>{
-  hide("#new-dialog");
-  show("#options-dialog");
-});
-
-$(".free-game")[0].on('click',()=>{
-  hide("#options-dialog");
-  game.resetGame();
-  game.level = parseInt($("#opt-level")[0].value);
-  game.lifes = parseInt($("#opt-lifes")[0].value);
-  game.mode = 'free';
-  game.showPlan();
-});
- 
-$("#lvl-dialog>button")[0].on('click',()=> {
-  game.resetLevel();
-  hide("#lvl-dialog")
-});
-
-}
  

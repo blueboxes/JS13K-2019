@@ -23,19 +23,18 @@ export function setTargetCells(homeCell,hexmap,level){
     ];
   
     //reset map
-    hexmap = hexmap.map((h)=>{if(h.status!='home')h.reset();return h})
+    hexmap = hexmap.map((h)=>{h.status!='home'?h.reset():h.resetHome();return h})
 
     let targetCells = [];
     let currentCell=homeCell;
     
-    //cells start at 4 and increase by 1 every 5 levels
-    let cellCount = Math.floor(level/5) + 5;
+    //cells start at 5 and increase by 1 every 3 levels
+    let cellCount = Math.floor(level/3) + 5;
     let skip = 0;
     targetCells.push(homeCell);
 
     while(targetCells.length <= cellCount && skip < 100){
-      //todo: check not falled off page
-      //todo:check number of nabours for given level
+
       let offset = (currentCell.col%2===0) ? evenOptions[getRandomInt(6)] : oddOptions[getRandomInt(6)]
       let cell = hexmap.find((e)=>e.col === (currentCell.col + offset[0]) && e.row === (currentCell.row + offset[1]));
       if(cell && !cell.status){
@@ -48,7 +47,7 @@ export function setTargetCells(homeCell,hexmap,level){
         }
 
         targetCells.push(cell);
-        cell.text = targetCells.length + 1;
+        //cell.text = targetCells.length + 1;
   
         //console.log("from " + currentCell.col  + ','+ currentCell.row + " offset " + offset + " new " + cell.col  + ','+ cell.row)
         currentCell = cell;

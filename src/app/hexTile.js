@@ -15,12 +15,16 @@ export function createHexTile(x,y,col,row) {
           height: 43.30127,
           row: row,
           col:col,
-          text:'',
-          fadeCount:10,
-          status: null,
+          resetHome: function()
+          {
+            this.previous = null;
+            this.next = null;
+          },
           reset: function(){
             this.status = null;
             this.fill = clr;
+            this.previous = null;
+            this.next = null;
             clearTimeout(this.fade);
           },
           onHit: function(){
@@ -67,7 +71,8 @@ export function createHexTile(x,y,col,row) {
                 
               var x = this.x + Math.cos(Math.PI * 2 / 6) * this.width/2;
               var y = this.y + Math.sin(Math.PI * 2 / 6) * (this.height/2 * 1.1547005);
-           
+              
+              ctx.setLineDash([]);
               ctx.beginPath();
               ctx.moveTo(x, y);
 
@@ -87,6 +92,25 @@ export function createHexTile(x,y,col,row) {
               ctx.closePath();
               ctx.fill();
               ctx.stroke();
+
+              //Draw line to show route
+              ctx.strokeStyle = '#576c99';
+              ctx.lineWidth = 2;
+              ctx.beginPath();
+              ctx.setLineDash([5, 5]);
+              if(this.previous)
+              {
+                ctx.moveTo(this.previous.x, this.previous.y)
+                ctx.lineTo(this.x, this.y);
+              } 
+              
+              if(this.next){
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(this.next.x, this.next.y);
+              }
+              ctx.closePath();
+              ctx.stroke();
+           
           }
         });
 

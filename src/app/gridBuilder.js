@@ -4,7 +4,7 @@ import { track } from 'kontra';
 export function buildGrid(canvas) {
     let vSpace = 37.5;
     let width = 43;
-    let colCount = (canvas.width/vSpace);
+    let colCount = Math.ceil(canvas.width/vSpace);
     let rowCount = (canvas.height/43.30127) + 1;
     const canvasOffSet = 12.5;
     let hexMap = [];

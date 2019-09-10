@@ -10,7 +10,8 @@
 <body>
    <div class="bar header">
         <div id="lvl">Level 1</div>
-        <ul id="lf"><li></li><li></li><li></li></ul>
+        <ul id="lf"></ul>
+        <ul id="rw"></ul>
     </div>     
     <canvas class="content"></canvas>
     <div class="bar footer"><div id="state"></div></div>
@@ -39,7 +40,7 @@
     </dialog>
     <dialog id="lvl-dialog">
         <span></span>
-        <button>Continue</button>
+        <button class="next">Continue</button>
     </dialog>
     <dialog id="over-dialog">
         <span></span>
@@ -52,17 +53,12 @@
            
         <table>
             <tr>
-                <td>Level</td>
-                <td><select id="opt-level">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>10</option>
-                    <option>50</option>
-                </select></td>
+                <td>Flight Length</td>
+                <td><select id="opt-level"></select></td>
             </tr>
             <tr>
                 <td>Lifes</td>
-                <td><select id="opt-lifes"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
+                <td><select id="opt-lifes"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option></select></td>
             </tr>
         </table>
 
