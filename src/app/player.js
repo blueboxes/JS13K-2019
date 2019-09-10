@@ -39,7 +39,10 @@ return Sprite({
       this.y = y;
     },
     moveToCell: function(sprite){
-      this.pathCells.push(sprite);
+      if(sprite)
+        this.pathCells.push(sprite);
+      else
+        throw 'no cell'
     },
     update: function() {
 

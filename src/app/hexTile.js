@@ -51,12 +51,10 @@ export function createHexTile(x,y,col,row) {
           update:function(player)
           {
             //highlight cell while the plane is in contact for half a second the back to normal.
-            //todo
             if(player && this.collidesWithPointer(player) && this.status === 'active' && this.fill != "#9eb4db")
             {
-              //todo drawline behind the plane              
               let oldFill = this.fill
-              this.fill = "#9eb4db"; //todo change colour 
+              this.fill = "#9eb4db";
   
               this.fade = setTimeout((cell,oldFill)=>{cell.fill = oldFill;},500,this,oldFill);
             }

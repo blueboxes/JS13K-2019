@@ -5,21 +5,33 @@ import { show } from './dialog';
 import { setupDialogEvents } from './dialogEvents';
 
 let { canvas } = init();
-
-var r = canvas.getBoundingClientRect();
-canvas.width = r.width;
-canvas.height = r.height - r.top;
+ 
+function initGame()
+{
+  var r = canvas.getBoundingClientRect();
+  canvas.width = r.width;
+  canvas.height = r.height - r.top;
+  
+  player = Player();
+  game = createGame(player,canvas);
+  show("#new-dialog");
+}
 
 initPointer();
   
-let player = Player();
-let game = createGame(player,canvas);
-
-show("#new-dialog");
+let player, game;
+initGame();
 
 onPointerDown(function(e, sprite) {
   game.onPointerDown(sprite);
 })
+ 
+window.addEventListener('resize', function(){
+  initGame();
+  game.domReady = true;
+  setupDialogEvents(game);
+}, true);
+
 
 document.addEventListener("DOMContentLoaded", function(event) { 
   game.domReady = true;

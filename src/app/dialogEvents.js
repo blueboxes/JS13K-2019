@@ -26,6 +26,7 @@ export function setupDialogEvents(game)
     game.resetGame();
     game.level = parseInt($("#opt-level")[0].value);
     game.lifes = parseInt($("#opt-lifes")[0].value);
+    game.rewinds = parseInt($("#opt-rewinds")[0].value);
     game.mode = 'free';
     game.showPlan();
   });

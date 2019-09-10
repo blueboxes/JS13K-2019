@@ -15,7 +15,7 @@ export function createGame(thePlayer,canvas){
         mode:'story',
         state:'new',
         level:1,
-        lifes:0,
+        lifes:3,
         flights:0,
         targetCells: null,
         hexMap: grid.hexMap,
@@ -36,7 +36,7 @@ export function createGame(thePlayer,canvas){
           this.drawRouteOut();
         },
         rewind:function(){
-          if(this.state==='back' && this.rewinds > 0){
+          if(this.state==='back' && this.rewinds > 0 && confirm("Do you wish to use a rewind to replay the route?") == true) {
             this.rewinds--;
             this.player.reset(this.centreCell.x,this.centreCell.y);
             this.hexMap = this.hexMap.map((h)=>{h.status!='home' && h.status!='end'?h.reset():h.resetHome();return h})
@@ -57,7 +57,7 @@ export function createGame(thePlayer,canvas){
         },
         onPointerDown(sprite)
         {
-          if(this.state==='show' && this.lifes > 0){
+          if((this.state==='new' || this.state==='show') && this.lifes > 0){
             this.resetLevel();
           }
 
@@ -138,8 +138,8 @@ export function createGame(thePlayer,canvas){
         render:function(){
  
           if(this.domReady){
-            if($("#state")[0].innerText != getStatusMessage(this.state)){
-                $("#state")[0].innerText = getStatusMessage(this.state);
+            if($(".footer")[0].innerText != getStatusMessage(this.state)){
+                $(".footer")[0].innerText = getStatusMessage(this.state);
             }
             if($("#lvl")[0].innerText != 'Level ' +  this.level){
               $("#lvl")[0].innerText = 'Level ' + this.level;

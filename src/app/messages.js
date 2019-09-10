@@ -5,9 +5,9 @@ export function getLevelMessage(level,flights,mode)
         if(flights == 0)
             return '';
         if(flights == 1)
-            return 'First flight compelted!'
+            return 'First flight completed!'
 
-        return flights + ' flights compelted so far!'
+        return flights + ' flights completed.'
     }
     
     const messages = [
