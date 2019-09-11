@@ -4,10 +4,10 @@ This game was created by John Kilmister for js13kGames build on kontra. In 2019 
 ![Game ScreenShot](/media/screen.png?raw=true "Game Screen Shot")
 
 ## Objective
-Watch the outbound route of the plane then complete the route back but tapping on the correct cells in order. Be warned if you go off course you plane will explode.
+Watch the outbound route of the plane then complete the route back home by tapping on the correct cells in order including the final landing. Be warned if you go off course your plane will crash.
 
 ## Controls 
-After Tap/click on the hex grid to move the plane around. Tap on the flags to be reminded of the route. If you go off course and crash tap or click to try again.
+When ready for the return trip tap/click on the hex grid to move the plane around. Tap on the flags at the top of the page to be reminded of the route. If you go off course and crash tap or click to try again.
 
 ## Tech 
 This entry uses [kontra](https://straker.github.io/kontra/), [jk13K starter Pack](https://github.com/sz-piotr/js13k-webpack-starter),  non transpiled ES6, Native dialogs, CSS3 animations and flexbox so will only work on the latest Chrome (desktop or mobile) or Firefox browsers.
