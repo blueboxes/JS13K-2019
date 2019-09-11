@@ -59,25 +59,13 @@ return Sprite({
           
 
       }else if(this.pathCells.length > 0){
-            
-          let setTarget = false;
 
           //Set new target if needed
-          if(!this.currentTarget){ 
-              setTarget = true;
-          }else if(this.currentTarget.collidesWithCentre(this)){
-            
+          if(this.currentTarget && this.currentTarget.collidesWithCentre(this)){
             this.pathCells.splice(0, 1);
-
-            if(this.pathCells.length>0){
-              setTarget = true;
-            }else{
-              this.currentTarget = null;
-            }          
           }
- 
-          if(setTarget){
-            
+
+          if(this.pathCells.length>0){
             this.currentTarget = this.pathCells[0];
             
             let directionRad = Math.atan2(this.currentTarget.y-this.y, this.currentTarget.x-this.x);
@@ -94,13 +82,12 @@ return Sprite({
 
             this.dx = Math.cos(directionRad) * this.speed;
             this.dy = Math.sin(directionRad) * this.speed;
-          }
-
-          if(this.currentTarget){  
+           
             this.x += this.dx;
             this.y += this.dy;   
             this.scale = 1.1;
           }else{
+            this.currentTarget = null;
             this.scale = 1;
           }
         }
