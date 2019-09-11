@@ -1,11 +1,5 @@
-//todo:
-/*
-move player to each cell 
-highlight then fade cells
-*/
 import { Sprite } from 'kontra';
 import svg from '../img/player.svg' 
-import { sounds } from './sounds';
 
 export function Player(){
 
@@ -41,8 +35,6 @@ return Sprite({
     moveToCell: function(sprite){
       if(sprite)
         this.pathCells.push(sprite);
-      else
-        throw 'no cell'
     },
     update: function() {
 

@@ -9,7 +9,7 @@ export function buildGrid(canvas) {
     const canvasOffSet = 12.5;
     let hexMap = [];
 
-    const centre = {x:Math.floor(colCount/2),y:Math.floor(rowCount/2)}
+    const centre = {x:Math.floor(colCount/2),y:Math.floor(rowCount/2)};
     let centreCell;
 
     for (let col = 0; col < colCount; col++) {

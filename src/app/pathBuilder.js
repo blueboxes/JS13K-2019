@@ -23,7 +23,7 @@ export function setTargetCells(homeCell,hexmap,level){
     ];
   
     //reset map
-    hexmap = hexmap.map((h)=>{h.status!='home'?h.reset():h.resetHome();return h})
+    hexmap = hexmap.map((h)=>{h.status!='home'?h.reset():h.resetHome();return h});
 
     let targetCells = [];
     let currentCell=homeCell;

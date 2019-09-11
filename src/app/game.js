@@ -32,14 +32,14 @@ export function createGame(thePlayer,canvas){
         {
           this.state='out';
           this.targetCells = setTargetCells(this.centreCell,this.hexMap,this.level);
-          this.player.reset(this.centreCell.x,this.centreCell.y)
+          this.player.reset(this.centreCell.x,this.centreCell.y);
           this.drawRouteOut();
         },
         rewind:function(){
           if(this.state==='back' && this.rewinds > 0 && confirm("Do you wish to use a rewind to replay the route?") == true) {
             this.rewinds--;
             this.player.reset(this.centreCell.x,this.centreCell.y);
-            this.hexMap = this.hexMap.map((h)=>{h.status!='home' && h.status!='end'?h.reset():h.resetHome();return h})
+            this.hexMap = this.hexMap.map((h)=>{h.status!='home' && h.status!='end'?h.reset():h.resetHome();return h});
             this.targetCells = this.targetCells.map((h)=>{if(h.status==='hit'){h.status='active'};return h});
             this.drawRouteOut();
           }
@@ -74,10 +74,10 @@ export function createGame(thePlayer,canvas){
               if(sprite === nextCell){
                
                 if(reamining.length===1){
-                  this.state = 'pending'
+                  this.state = 'pending';
                  
                   this.player.afterMove = ()=>{
-                    this.state = 'levelup'
+                    this.state = 'levelup';
                     this.flights++;
                     playSound(sounds.levelup);
                     if(this.mode!='free'){
@@ -85,7 +85,7 @@ export function createGame(thePlayer,canvas){
                       if(this.level%10==0)
                         this.lifes++;
                     }
-                    this.showPlan()
+                    this.showPlan();
                   };
 
                 }
@@ -104,7 +104,7 @@ export function createGame(thePlayer,canvas){
                   setTimeout(()=>{
                     this.state='over';
                     applyTemplate({flights:this.flights,level:this.level,url:window.location.href}, this.mode == 'story'?  "#story-over-tmp" : "#free-over-tmp", "#over-dialog>span");             
-                    show("#over-dialog")                  
+                    show("#over-dialog");                 
                   },3000);
                 } 
               };
@@ -115,12 +115,9 @@ export function createGame(thePlayer,canvas){
           this.state='show';
           this.targetCells.map((cell,i)=>{
 
-            if(i>0) cell.previous = this.targetCells[i-1]
-            if(i!=this.targetCells.length) cell.next = this.targetCells[i+1]
-            if(cell.status === 'active'){
-              cell.fill = "#97d2da";  
-            }
-
+            if(i>0) cell.previous = this.targetCells[i-1];
+            if(i!=this.targetCells.length) cell.next = this.targetCells[i+1];
+            if(cell.status === 'active') cell.fill = "#97d2da";  
           });  
 
         },
@@ -153,7 +150,6 @@ export function createGame(thePlayer,canvas){
               $("#rw")[0].innerHTML = '<li></li>'.repeat(this.rewinds);
             }
           }
-
         }
     }
     return g;

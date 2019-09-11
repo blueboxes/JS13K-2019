@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   $("#rw")[0].on('click',()=>{
-    game.rewind()
+    game.rewind();
   });
 
 });

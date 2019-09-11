@@ -55,6 +55,9 @@ li {
   background: #576c99;
   border-bottom:2px solid #9eb4db;
   flex-direction:row;
+}
+
+.bar,.footer{
   justify-content: space-between;
   color: white;
   text-align: center;
@@ -72,7 +75,7 @@ li {
 .footer{
   justify-content:center;
   font-size: 1.3em; 
-  padding: 5px;
+  padding: 5px 0;
   border:none;
   background: #b2acab;
   position: absolute;

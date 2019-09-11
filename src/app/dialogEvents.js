@@ -33,7 +33,7 @@ export function setupDialogEvents(game)
 
   $("#lvl-dialog>.next")[0].on('click',()=> {
     game.resetLevel();
-    hide("#lvl-dialog")
+    hide("#lvl-dialog");
   });
 
 }
