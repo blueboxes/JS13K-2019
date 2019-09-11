@@ -5,7 +5,10 @@ import { show } from './dialog';
 import { setupDialogEvents } from './dialogEvents';
 
 let { canvas } = init();
- 
+let player, game;
+
+initPointer();
+
 function initGame()
 {
   var r = canvas.getBoundingClientRect();
@@ -17,13 +20,8 @@ function initGame()
   show("#new-dialog");
 }
 
-initPointer();
-  
-let player, game;
-initGame();
-
 onPointerDown(function(e, sprite) {
-  game.onPointerDown(sprite);
+  if(game) game.onPointerDown(sprite);
 })
  
 window.addEventListener('resize', function(){
@@ -34,6 +32,7 @@ window.addEventListener('resize', function(){
 
 
 document.addEventListener("DOMContentLoaded", function(event) { 
+  initGame();
   game.domReady = true;
   setupDialogEvents(game);
 
@@ -49,19 +48,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
     game.rewind();
   });
 
-});
+  //Setup the game
+  let loop = GameLoop({  
+    update: function() { 
+      player.update();
+      game.hexMap.map(sprite => sprite.update(player));
+      game.update();
+    },
+    render: function() { 
+      game.hexMap.map(sprite => sprite.render());
+      player.render();
+      game.render();
+    }
+  });
 
-let loop = GameLoop({  
-  update: function() { 
-    player.update();
-    game.hexMap.map(sprite => sprite.update(player));
-    game.update();
-  },
-  render: function() { 
-    game.hexMap.map(sprite => sprite.render());
-    player.render();
-    game.render();
-  }
+  loop.start();
 });
-
-loop.start();

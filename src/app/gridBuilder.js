@@ -2,11 +2,12 @@ import { createHexTile } from './hexTile';
 import { track } from 'kontra';
 
 export function buildGrid(canvas) {
-    let vSpace = 37.5;
-    let width = 43;
-    let colCount = Math.ceil(canvas.width/vSpace);
-    let rowCount = (canvas.height/43.30127) + 1;
+    const headerOffSet = 35;
     const canvasOffSet = 12.5;
+    const vSpace = 37.5;
+    const width = 43;
+    let colCount = Math.ceil(canvas.width/vSpace);
+    let rowCount = ((canvas.height-headerOffSet)/43.30127);
     let hexMap = [];
 
     const centre = {x:Math.floor(colCount/2),y:Math.floor(rowCount/2)};
@@ -16,7 +17,7 @@ export function buildGrid(canvas) {
         for (let row = 0; row < rowCount; row++) {
             let y = row * width;
             y += (col%2) ? width/2 : 0;//Off set the odd columns so they tile
-            let tile = createHexTile(canvasOffSet + col * vSpace,y,col,row);
+            let tile = createHexTile(canvasOffSet + col * vSpace, y + headerOffSet,col,row);
             track(tile);
 
             if(col==centre.x && row==centre.y){

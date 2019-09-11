@@ -6,6 +6,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: Courier;
+  background:#91b247;
 }
 
 body {
@@ -50,14 +51,17 @@ li {
     background-repeat: no-repeat;
 }
 
-.bar{
+.header{
   display: flex;
   background: #576c99;
   border-bottom:2px solid #9eb4db;
   flex-direction:row;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 
-.bar,.footer{
+.header,.footer{
   justify-content: space-between;
   color: white;
   text-align: center;

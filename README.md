@@ -1,7 +1,7 @@
 # Flight Back Home
-This game was created by John Kilmister for js13kGames. In 2019 this game runs on only the latest chrome and firefox desktop browsers and chrome mobile.
+This game was created by John Kilmister for js13kGames build on kontra. In 2019 this game runs on only the latest chrome and firefox desktop browsers and chrome mobile.
 
-![Alt text](/media/screen.png?raw=true "Optional Title")
+![Game ScreenShot](/media/screen.png?raw=true "Game Screen Shot")
 
 ## Objective
 Watch the outbound route of the plane then complete the route back but tapping on the correct cells in order. Be warned if you go off course you plane will explode.
@@ -10,7 +10,7 @@ Watch the outbound route of the plane then complete the route back but tapping o
 After Tap/click on the hex grid to move the plane around. Tap on the flags to be reminded of the route. If you go off course and crash tap or click to try again.
 
 ## Tech 
-This entry uses non transpiled ES6, Native dialogs, CSS3 animations and flexbox so will only work on the latest Chrome (desktop or mobile), Firefox or Edge browsers.
+This entry uses [kontra](https://straker.github.io/kontra/), [jk13K starter Pack](https://github.com/sz-piotr/js13k-webpack-starter),  non transpiled ES6, Native dialogs, CSS3 animations and flexbox so will only work on the latest Chrome (desktop or mobile) or Firefox browsers.
 
 ## Features
 * Story Mode
@@ -56,6 +56,7 @@ This will generate two files `index.html` and `build.zip` both located in the `d
 I would like to extend my thanks to...
 
 * Andrzej Mazur for running JS13K Games
+* Kontra for a great game framework
 * JFSXR and as3sfxr for the sounds - https://github.com/mneubrand/jsfxr
 * @redblobgames for this great post on hexegons - https://www.redblobgames.com/grids/hexagons/
 * Blink JS - https://gist.github.com/paulirish/12fb951a8b893a454b32
